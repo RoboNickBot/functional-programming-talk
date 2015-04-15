@@ -1,0 +1,24 @@
+* What is Functional Programming?
+** Imperative vs. Declarative
+   a
+** Turing Machines and the Lambda Calculus
+   b
+** The Rules
+   c
+* Haskell
+
+  asdf
+  #+BEGIN 
+
+* Functional Concepts
+** Functors
+   e
+* Concepts specific to Haskell
+** Type Safety
+   h
+** Lazy Evaluation
+   h
+** Currying
+   hn
+** The IO Monad
+   g

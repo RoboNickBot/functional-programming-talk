@@ -1,24 +1,220 @@
 * What is Functional Programming?
-** Imperative vs. Declarative
-   a
-** Turing Machines and the Lambda Calculus
-   b
-** The Rules
-   c
-* Haskell
+** Procedural and OOP
+   Imperative - Telling the computer *how* to do things
 
-  asdf
-  #+BEGIN 
+   - in *Procedural* code, computations are performed by manipulating
+     the values of variables
+
+   - in the *Object Oriented* paradigm, computations are performed by
+     calling object methods, causing *side-effects*
+
+** Functional Programming
+   *Declarative* - Telling the computer *what* to do
+
+   - in *Functional* code, computations are performed by applying
+     *functions* to arguments
+   
+   - everything is a function!
+
+     - even constants are functions!
+       
+*** The Rules
+    - A function applied to the same arguments *must* always return
+      the same value
+      - No state!
+
+    - Functions cannot alter their arguments
+      - think: pass by value
+      - No side-effects!
+* Haskell
+  Let's begin with... Hello World!
+  
+  #+BEGIN_SRC haskell :tangle Examples.hs
+
+module Examples where
+
+import qualified Data.Map as M
+
+main :: IO ()
+main = putStrLn "Hello World!"
+
+  #+END_SRC
+** Function Application
+
+   Function application is performed simply with spaces
+
+   #+BEGIN_SRC haskell :tangle Examples.hs
+      
+exciting string = string ++ "!"
+
+mult :: Int -> Int -> Int
+mult a b = a * b
+
+hello = "Hello World"
+
+printExcited thing = putStrLn $ exciting thing
+
+   #+END_SRC
+** Pattern Matching and Recursion
+
+   A common pattern in Haskell functions is to check for "base case"
+   patterns, and perform recursion if they are not found
+
+   #+BEGIN_SRC haskell :tangle Examples.hs
+
+-- String is really just [Char]
+
+aString :: String
+aString = 'O':'h':' ':'h':'i':[]
+
+reaction :: String -> String
+reaction = undefined
+
+   #+END_SRC
 
 * Functional Concepts
+** Referential Transparency
+   - A function cannot read external state to determine its return
+     value
+
+   - A function with the same arguments must return the same result
+
+   - So, a function with arguments applied *is* its return value, as
+     far as the program is concerned
+     
+** Lambda Expressions
+   Functions defined on-the-fly
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+useLamPlus :: Int -> Int
+useLamPlus v = (\x -> x + 1) v
+
+#+END_SRC   
+   
+** Higher-Order Functions
+   Functions are "First-Class" values -- they can be passed around
+   just like anything else
+
+   (Of course, they have to! Everything *is* a function!)
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+useAnyLam :: (Int -> Int) -> Int -> Int
+useAnyLam fun v = fun v
+
+very :: (a -> a) -> (a -> a)
+very = undefined
+
+#+END_SRC   
+
 ** Functors
-   e
+   - a structure that can be mapped over
+   
+   - the contents can be transformed without altering the shape
+     
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+-- a couple Haskell examples: List and Maybe
+
+mapList :: (a -> b) -> [a] -> [b]
+mapList = undefined
+
+data Maybe' a = Just' a | Nothing'
+
+mapMaybe :: (a -> b) -> Maybe a -> Maybe b
+mapMaybe = undefined
+
+#+END_SRC   
+
 * Concepts specific to Haskell
 ** Type Safety
-   h
+   Always be absolutely sure of type!
+
+   Antithesis: "Duck Typing"
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+-- Maybe represents failure
+
+myMap :: M.Map String String
+myMap = M.fromList [("Joe", "Pancakes"), ("Alice", "Waffles")]
+
+#+END_SRC   
+
+** Higher-Order Types
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+double :: a -> [a]
+double thing = [thing, thing]
+
+chair :: String
+chair = "a nice chair"
+#+END_SRC   
+
 ** Lazy Evaluation
-   h
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+  divis :: Int -> Int -> Bool
+  divis a b = (==0) $ mod a b
+
+  isPrime :: Int -> Bool
+  isPrime a = testPrime a primes
+
+
+  primes :: [Int]
+  primes = 2 : (r 3 [2]) where
+      -- Recursive helper function
+      r :: Int -> [Int] -> [Int]
+      r a ps =
+          if testPrime a ps 
+          -- Add 'a' to the list of primes and the checklist
+          then let rest = r (a+2) (ps++[a]) in a : rest
+          -- Forget 'a' and move on to the next number
+          else r (a+2) ps
+
+  testPrime :: Int -> [Int] -> Bool
+  testPrime a ps = not . or . fmap (divis a) $ (candidates a ps)
+
+  -- Values that need to be checked for divisibility
+  candidates :: Int -> [Int] -> [Int]
+  candidates a = takeWhile $ (<=a) . (^2)
+
+
+  largestPF :: [Int] -> Int -> Int
+  largestPF (p:ps) u
+      | p == u = p
+      | divis u p = largestPF (p:ps) (quot u p)
+      | otherwise = largestPF ps u
+
+#+END_SRC   
+
+
 ** Currying
-   hn
+
+#+BEGIN_SRC haskell :tangle Examples.hs
+
+addThreeInts :: Int -> Int -> Int -> Int
+addThreeInts a b c = a + b + c
+
+addTwoIntsToFive :: Int -> Int -> Int
+addTwoIntsToFive a b = addThreeInts 5 a b
+
+itsJustSeven :: Int
+itsJustSeven = addTwoIntsToFive 2 0 
+
+#+END_SRC   
+
 ** The IO Monad
-   g
+* Resources
+  - Functional Programming
+    - *Structure and Interpretation of Computer Programs*
+      http://mitpress.mit.edu/sicp/full-text/book/book.html
+      
+  - Haskell
+    - *Learn You a Haskell for Great Good!*
+      http://learnyouahaskell.com/chapters
+    - *Real World Haskell*
+      http://book.realworldhaskell.org/read/

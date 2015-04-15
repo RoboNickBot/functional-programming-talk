@@ -138,6 +138,9 @@ data Maybe' a = Just' a | Nothing'
 mapMaybe :: (a -> b) -> Maybe a -> Maybe b
 mapMaybe = undefined
 
+-- these functions are just different names for "fmap", the
+-- function that defines Functor typeclass membership
+
 #+END_SRC   
 
 * Concepts specific to Haskell
@@ -150,6 +153,8 @@ mapMaybe = undefined
 
 -- Maybe represents failure
 
+-- for example, Map lookups return values in the Maybe context
+
 myMap :: M.Map String String
 myMap = M.fromList [("Joe", "Pancakes"), ("Alice", "Waffles")]
 
@@ -159,6 +164,11 @@ myMap = M.fromList [("Joe", "Pancakes"), ("Alice", "Waffles")]
 
 #+BEGIN_SRC haskell :tangle Examples.hs
 
+-- Maps and Lists and Maybe are containers incomplete types
+
+-- they require their contents to be defined in order to
+-- be concrete
+
 double :: a -> [a]
 double thing = [thing, thing]
 
@@ -167,6 +177,10 @@ chair = "a nice chair"
 #+END_SRC   
 
 ** Lazy Evaluation
+
+   Here, 'primes' produces an infinite list of the prime numbers.
+
+   How can that be used?  By evaluating lazily!
 
 #+BEGIN_SRC haskell :tangle Examples.hs
 
@@ -204,12 +218,17 @@ chair = "a nice chair"
 
 #+END_SRC   
 
-
 ** Currying
+
+   Technically, functions only take *one argument*.
+
+   A function that seems to take two arguments is really a function
+   that takes one argument and returns another function that takes one
+   argument.
 
 #+BEGIN_SRC haskell :tangle Examples.hs
 
-addThreeInts :: Int -> Int -> Int -> Int
+addThreeInts :: ( Int -> ( Int -> ( Int -> ( Int ) ) ) )
 addThreeInts a b c = a + b + c
 
 addTwoIntsToFive :: Int -> Int -> Int
@@ -221,6 +240,7 @@ itsJustSeven = addTwoIntsToFive 2 0
 #+END_SRC   
 
 ** The IO Monad
+   Didn't get to this...
 * Resources
   - Functional Programming
     - *Structure and Interpretation of Computer Programs*
@@ -231,3 +251,9 @@ itsJustSeven = addTwoIntsToFive 2 0
       http://learnyouahaskell.com/chapters
     - *Real World Haskell*
       http://book.realworldhaskell.org/read/
+
+  - Also the the "slides" of *this presentation* on Github!
+    https://github.com/RoboNickBot/functional-programming-talk
+    - (The Haskell code in this org file can be extracted into a valid
+      .hs file for compilation by running ```M-x org-babel-tangle```
+      in Emacs)

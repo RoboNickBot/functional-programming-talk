@@ -5,14 +5,20 @@
    - in *Procedural* code, computations are performed by manipulating
      the values of variables
 
+     - Examples: C
+
    - in the *Object Oriented* paradigm, computations are performed by
      calling object methods, causing *side-effects*
+
+     - Examples: Java, Python, SmallTalk, C++
 
 ** Functional Programming
    *Declarative* - Telling the computer *what* to do
 
    - in *Functional* code, computations are performed by applying
      *functions* to arguments
+
+     - Examples: Haskell!, Lisp, OCaml, ML
    
    - everything is a function!
 
@@ -45,6 +51,7 @@ main = putStrLn "Hello World!"
 
    #+BEGIN_SRC haskell :tangle Examples.hs
       
+exciting :: String -> String
 exciting string = string ++ "!"
 
 mult :: Int -> Int -> Int
@@ -52,7 +59,7 @@ mult a b = a * b
 
 hello = "Hello World"
 
-printExcited thing = putStrLn $ exciting thing
+printExcited thing = putStrLn ( exciting thing )
 
    #+END_SRC
 ** Pattern Matching and Recursion
@@ -68,7 +75,9 @@ aString :: String
 aString = 'O':'h':' ':'h':'i':[]
 
 reaction :: String -> String
-reaction = undefined
+reaction ('!':[]) = "I'm happy!"
+reaction (a:as) = reaction as
+reaction ([]) = "I'm sad..."
 
    #+END_SRC
 
@@ -87,8 +96,8 @@ reaction = undefined
 
 #+BEGIN_SRC haskell :tangle Examples.hs
 
-useLamPlus :: Int -> Int
-useLamPlus v = (\x -> x + 1) v
+useLamPlus :: Int -> String
+useLamPlus v = (\x -> concat $ replicate 10 (show x)) v
 
 #+END_SRC   
    
@@ -104,7 +113,10 @@ useAnyLam :: (Int -> Int) -> Int -> Int
 useAnyLam fun v = fun v
 
 very :: (a -> a) -> (a -> a)
-very = undefined
+very fun = fun . fun
+
+very' :: (a -> a) -> a -> a
+very' fun a = fun (fun a)
 
 #+END_SRC   
 
@@ -118,7 +130,8 @@ very = undefined
 -- a couple Haskell examples: List and Maybe
 
 mapList :: (a -> b) -> [a] -> [b]
-mapList = undefined
+mapList fun (a:as) = (fun a) : (mapList fun as)
+mapList _ _ = []
 
 data Maybe' a = Just' a | Nothing'
 

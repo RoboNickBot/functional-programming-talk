@@ -244,7 +244,7 @@ itsJustSeven = addTwoIntsToFive 2 0
 * Resources
   - Functional Programming
     - *Structure and Interpretation of Computer Programs*
-      - [http://mitpress.mit.edu/sicp/full-text/book/book.html][link]
+      - http://mitpress.mit.edu/sicp/full-text/book/book.html
       
   - Haskell
     - *Learn You a Haskell for Great Good!*

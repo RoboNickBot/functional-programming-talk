@@ -248,12 +248,12 @@ itsJustSeven = addTwoIntsToFive 2 0
       
   - Haskell
     - *Learn You a Haskell for Great Good!*
-      - [http://learnyouahaskell.com/chapters][link]
+      - http://learnyouahaskell.com/chapters
     - *Real World Haskell*
-      - [[http://book.realworldhaskell.org/read/][link]
+      - http://book.realworldhaskell.org/read/
 
   - Also see this presentation's source org-mode file on Github!
-    - [[https://github.com/RoboNickBot/functional-programming-talk][link]
+    - https://github.com/RoboNickBot/functional-programming-talk
     - (The Haskell code in this org file can be extracted into a valid
       =.hs= file for compilation by running ~M-x org-babel-tangle~ in
       Emacs)

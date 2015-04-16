@@ -244,16 +244,16 @@ itsJustSeven = addTwoIntsToFive 2 0
 * Resources
   - Functional Programming
     - *Structure and Interpretation of Computer Programs*
-      http://mitpress.mit.edu/sicp/full-text/book/book.html
+      - [http://mitpress.mit.edu/sicp/full-text/book/book.html][link]
       
   - Haskell
     - *Learn You a Haskell for Great Good!*
-      http://learnyouahaskell.com/chapters
+      - [http://learnyouahaskell.com/chapters][link]
     - *Real World Haskell*
-      http://book.realworldhaskell.org/read/
+      - [[http://book.realworldhaskell.org/read/][link]
 
-  - Also the the "slides" of *this presentation* on Github!
-    https://github.com/RoboNickBot/functional-programming-talk
+  - Also see this presentation's source org-mode file on Github!
+    - [[https://github.com/RoboNickBot/functional-programming-talk][link]
     - (The Haskell code in this org file can be extracted into a valid
-      .hs file for compilation by running ```M-x org-babel-tangle```
-      in Emacs)
+      =.hs= file for compilation by running ~M-x org-babel-tangle~ in
+      Emacs)
